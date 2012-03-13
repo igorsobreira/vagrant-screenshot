@@ -22,6 +22,9 @@ For more information use
 
     $ vagrant screenshot --help
 
+There is a ``--open``(or ``-o``) option to open the generated images, but
+it's only available on OS X for now.
+
 Contributing
 ------------
 
