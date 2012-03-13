@@ -9,7 +9,7 @@ module Vagrant
         options = {}
         filenames = []
 
-        raise Errors::VBoxManageCommandNotFound if vbox_manage_command == ""
+        raise Errors::VBoxManageCommandNotFound if vbox_manage_command.empty?
 
         opts = build_screenshot_options options
         argv = parse_options(opts)
@@ -47,7 +47,7 @@ module Vagrant
           opts.banner  = "Take screenshot from all active VMs.\n\n"
           opts.banner += "Usage: vagrant screenshot [vm-name1, vm-name2, ...]\n\n"
 
-          if open_command != ""
+          if !open_command.empty?
             opts.on("-o", "--open", "Opens the generated images") do |c|
               options[:open] = true
             end
