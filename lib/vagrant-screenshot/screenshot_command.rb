@@ -59,7 +59,7 @@ module Vagrant
       end
 
       def open_generated_files(filenames)
-        %x[open #{filenames.join(' ')}]
+        %x[#{open_command} #{filenames.join(' ')}]
       end
 
       def notify(level, msg)
