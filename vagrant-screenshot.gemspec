@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "vagrant-screenshot"
-  s.version     = "0.1"
+  s.version     = "0.2"
   s.authors     = ["Igor Sobreira"]
   s.email       = ["igor@igorsobreira.com"]
   s.homepage    = "https://github.com/igorsobreira/vagrant-screenshot"
