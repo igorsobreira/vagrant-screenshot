@@ -34,7 +34,7 @@ module Vagrant
         elsif RUBY_PLATFORM =~ /darwin/
           %x[which open].chomp
         else
-          $stderr.puts "The open flag is not currently supported on your OS."
+          ""
         end
       end
 
