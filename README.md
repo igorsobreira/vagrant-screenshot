@@ -7,10 +7,6 @@ Instalation
 -----------
 
     $ gem install vagrant-screenshot
-  
-Add to your Vagrantfile
-
-    require 'vagrant-screenshot'
 
 Usage
 -----
