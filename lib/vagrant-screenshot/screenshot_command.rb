@@ -3,13 +3,9 @@ module Vagrant
   module Command
     class ScreenshotCommand < Base
 
-      VBOX_MANAGE = 'VBoxManage'
-
       def execute
         options = {}
         filenames = []
-
-        raise Errors::VBoxManageCommandNotFound if vbox_manage_command.empty?
 
         opts = build_screenshot_options options
         argv = parse_options(opts)
@@ -22,7 +18,7 @@ module Vagrant
           else
             notify "Taking screenshot for #{vm.name}"
             filename = create_output_filename vm.name
-            take_screenshot vm.uuid, filename
+            take_screenshot vm, filename
             filenames << filename
             open_generated_files(filenames) if options[:open]
           end
@@ -31,10 +27,6 @@ module Vagrant
       end
 
       protected
-
-      def vbox_manage_command
-        %x[which VBoxManage].chomp
-      end
 
       def open_command
         # Currently just Mac's 'open' command is supported, if it's
@@ -61,8 +53,8 @@ module Vagrant
         "screenshot-#{vm_name}.png"
       end
 
-      def take_screenshot(vm_uuid, filename)
-        %x[#{VBOX_MANAGE} controlvm #{vm_uuid} screenshotpng #{filename}]
+      def take_screenshot(vm, filename)
+        vm.driver.execute_command ["controlvm", vm.uuid, "screenshotpng", filename]
         notify "Screenshot saved on #{filename}"
       end
 
