@@ -14,9 +14,9 @@ module Vagrant
         vm_name = argv[0]
         with_target_vms(vm_name) do |vm|
           if vm.state != :running
-            notify "Skiping #{vm.name}. VM not running"
+            notify :warn, "Skiping #{vm.name}. VM not running"
           else
-            notify "Taking screenshot for #{vm.name}"
+            notify :info, "Taking screenshot for #{vm.name}"
             filename = create_output_filename vm.name
             take_screenshot vm, filename
             filenames << filename
@@ -55,15 +55,15 @@ module Vagrant
 
       def take_screenshot(vm, filename)
         vm.driver.execute_command ["controlvm", vm.uuid, "screenshotpng", filename]
-        notify "Screenshot saved on #{filename}"
+        notify :success, "Screenshot saved on #{filename}"
       end
 
       def open_generated_files(filenames)
         %x[open #{filenames.join(' ')}]
       end
 
-      def notify(msg)
-        puts msg
+      def notify(level, msg)
+        @env.ui.send(level, msg)
       end
 
     end
