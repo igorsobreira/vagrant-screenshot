@@ -29,9 +29,13 @@ module Vagrant
       protected
 
       def open_command
-        # Currently just Mac's 'open' command is supported, if it's
-        # not found the -o option is not provided
-        %x[which open].chomp
+        if RUBY_PLATFORM =~ /linux/
+          %x[which xdg-open].chomp
+        elsif RUBY_PLATFORM =~ /darwin/
+          %x[which open].chomp
+        else
+          $stderr.puts "The open flag is not currently supported on your OS."
+        end
       end
 
       def build_screenshot_options(options)
